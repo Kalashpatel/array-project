@@ -5,7 +5,7 @@ using namespace std;
 class BankAccount{
 
     protected:
-        int accountNumber;
+        long accountNumber;
         string accountHolderName;
         double balance;
 
@@ -26,7 +26,7 @@ class BankAccount{
 
             cout << endl;
         }
-        int getAccountNo(){
+        long getAccountNo(){
             return accountNumber;
         }
         double getBalance(){
@@ -45,7 +45,7 @@ class BankAccount{
             }
         }
         virtual void withdraw(double wamount, double b){
-            if(wamount <= b){
+            if(wamount <= b && wamount >= 0){
                 balance -= wamount;
                 cout << wamount << "rs. withdrawn succesfully." << endl << endl;
             }
@@ -64,7 +64,7 @@ class BankAccount{
 };
 class savingsAccount : public BankAccount{
     double interest;
-    int interestRate = 8;
+    int interestRate = 7;
 
     public:
         virtual void calculateInterest(){
@@ -87,11 +87,11 @@ class checkingAccount : public BankAccount{
     }
 };
 class fixedDeposite : public BankAccount{
-    int fixedDepositeInterest = 10;
+    int fixedDepositeInterest = 8;
 
     virtual void fixedInterest(int t){
         double Finterest, finalAmount;
-        Finterest = (balance * fixedDepositeInterest * t) / 100;
+        Finterest = balance + (balance * fixedDepositeInterest * t) / 100;
         finalAmount = balance + Finterest;
         cout << "Interest on you fixed deposite account balance is: " << Finterest << " and your final amount after " << t << " months will be: " << finalAmount << endl << endl;
     }
@@ -101,7 +101,6 @@ class fixedDeposite : public BankAccount{
 int main(){
 
     int n, i;
-    bool found = false;
 
     cout << "Enter the number of person: ";
     cin >> n;
@@ -158,6 +157,7 @@ int main(){
             int wano;
             cout << "Enter the account no: ";
             cin >> wano;
+            bool found1 = false;
 
             for(i = 0; i < n; i++){
                 if(Person[i]->getAccountNo() == wano){
@@ -165,10 +165,10 @@ int main(){
                     cout << "Enter the amount to deposit: ";
                     cin >> amount;
                     Person[i]->deposite(amount);
-                    found = true;
+                    found1 = true;
                 }
             }
-            if(!found){
+            if(!found1){
                 cout << "You have entered wrong account number" << endl;
                 cout << "==============================" << endl << endl;
             }
@@ -180,6 +180,7 @@ int main(){
             int ano;
             cout << "Enter the account no: ";
             cin >> ano;
+            bool found2 = false;
 
             for(i = 0; i < n; i++){
                 if(Person[i]->getAccountNo() == ano){
@@ -188,11 +189,11 @@ int main(){
                     cin >> amount;
                     availableBalance = Person[i]->getBalance();
                     Person[i]->withdraw(amount, availableBalance);
-                    found = true;
+                    found2 = true;
                     cout << endl << endl;
                 }
             }
-            if(!found){
+            if(!found2){
                 cout << "You have entered wrong account number" << endl;
                 cout << "==============================" << endl << endl;
             }
@@ -206,14 +207,15 @@ int main(){
             cout << "Enter the account no: ";
             cin >> bano;
             cout << endl;
+            bool found3 = false;
 
             for(i = 0; i < n; i++){
                 if(Person[i]->getAccountNo() == bano){
                     cout << "Balace is: " << Person[i]->getBalance() << endl << endl;
-                    found = true;
+                    found3 = true;
                 }
             }
-            if(!found){
+            if(!found3){
                 cout << "You have entered wrong account number" << endl;
                 cout << "==============================" << endl << endl;
             }
@@ -227,16 +229,17 @@ int main(){
             cout << "Enter the account no: ";
             cin >> dano;
             cout << endl;
+            bool found4 = false;
 
             for(i = 0; i < n; i++){
                 if(Person[i]->getAccountNo() == dano){
                     cout << "Account Number is: " << Person[i]->getAccountNo() << endl;
                     cout << "Account holder's name is: " << Person[i]->getName() << endl;
                     cout << "Available balance is: " << Person[i]->getBalance() << endl << endl;
-                    found = true;
+                    found4 = true;
                 }
             }
-            if(!found){
+            if(!found4){
                 cout << "You have entered wrong account number" << endl;
                 cout << "==============================" << endl << endl;
             }
@@ -250,14 +253,15 @@ int main(){
             cout << "Enter the account no: ";
             cin >> Iano;
             cout << endl;
+            bool found5 = false;
 
             for (i = 0; i < n; i++){
                 if(Person[i]->getAccountNo() == Iano){
                     Person[i]->calculateInterest();
-                    found = true;
+                    found5 = true;
                 }
             }
-            if(!found){
+            if(!found5){
                 cout << "You have entered wrong account number" << endl;
                 cout << "==============================" << endl << endl;
             }
@@ -271,6 +275,7 @@ int main(){
             cout << "Enter the account no: ";
             cin >> fano;
             cout << endl;
+            bool found6 = false;
 
             for(i = 0; i < n; i++){
                 if(Person[i]->getAccountNo() == fano){
@@ -280,10 +285,10 @@ int main(){
 
                     Person[i]->fixedInterest(term);
 
-                    found = true;
+                    found6 = true;
                 }
             }
-            if(!found){
+            if(!found6){
                 cout << "You have entered wrong account number" << endl;
                 cout << "==============================" << endl << endl;
             }
@@ -297,8 +302,6 @@ int main(){
             break;
         }
     }while (choice != 0);
-
-    
 
     return 0;
 }
