@@ -1,17 +1,18 @@
 #include<iostream>
 using namespace std;
-#define MAX 100
 
 class Stack 
 {
 
     private:
-        int top, count;
+        int top, count, size, element;
         int *arr;
 
     public:
 
-        Stack(int size){
+        Stack(){
+            cout << "Enter the size of stack: ";
+            cin >> size;
             arr = new int[size];
             top = -1;
             count = 0;
@@ -20,22 +21,61 @@ class Stack
             delete[] arr;
         }
         
-        void pushOnStack(int e){
-            if(count > MAX){
+        void pushOnStack(){
+
+            cout << "Enter the element: ";
+            cin >> element;
+
+            if(count == size){
                 cout << "stack overflow....." << endl << endl;
             }else{
                 top++;
-                arr[top] = e;
+                arr[top] = element;
                 count++;
-                // cout << "element inserted successfully...." << endl;
+                cout << "element inserted successfully...." << endl;
             }
+        }
+
+        void popFromStack(){
+
+            if(count == 0){
+                cout << "stack is empty....." << endl << endl;
+            }else{
+                top--;
+                count--;
+                cout << "Element deleted successfully" << endl << endl;
+            }
+        }
+
+        void getTop(){
+            if(count == 0){
+                cout << "stack is empty....." << endl << endl;
+            }else{
+                cout << "Top element of stack is " << arr[top] << endl << endl;
+            }
+        }
+
+        void fullStack(){
+            if(count == size){
+                cout << "stack is Full......." << endl << endl;
+            }else{
+                cout << "stack is not fulll....." << endl << endl;
+            } 
+        }
+
+        void emptyStack(){
+            if(count == 0){
+                cout << "stack is Empty......." << endl << endl;
+            }else{
+                cout << "stack is not Empty....." << endl << endl;
+            } 
         }
 
         void display(){
             if(count == 0){
                 cout << "Stack is empty..." << endl;
             }else{
-                cout << "Binary number is: ";
+                cout << "Elements of stack are: ";
                 for(int i = top; i >= 0; i--){
                     cout << arr[i] << " ";
                 }
@@ -46,21 +86,59 @@ class Stack
 
 int main(){
 
-    Stack s(MAX);
+    Stack s;
 
-    int num, mod;
+    int choice;
 
-    cout << "Enter the number you want to convert in binary : ";
-    cin >> num;
+    do{
 
-    while (num != 0)
-    {
-        mod = num % 2;
-        num = num / 2;
-        s.pushOnStack(mod);
-    }
+        cout << "Stack operations........." << endl;
+        cout << "1.Insert element in Stack." << endl;
+        cout << "2.Delete element from Stack." << endl;
+        cout << "3.View top of Stack." << endl;
+        cout << "4.Check if Stack is full." << endl;
+        cout << "5.Check if Stack is empty." << endl;
+        cout << "6.View all elements of Stack." << endl;
+        cout << "0.Exit." << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            s.pushOnStack();
+            break;
+
+        case 2:
+            s.popFromStack();
+            break;
+
+        case 3:
+            s.getTop();
+            break;
+
+        case 4:
+            s.fullStack();
+            break;
+
+        case 5:
+            s.emptyStack();
+            break;
+        
+        case 6:
+            s.display();
+            break;
+
+        case 0:
+            
+            break;
+
+        default:
+            break;
+        }
+
+    }while (choice != 0);
     
-    s.display();
 
     return 0;
 }
