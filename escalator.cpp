@@ -59,7 +59,7 @@ class Stack
             if(count == size){
                 cout << "stack is Full......." << endl << endl;
             }else{
-                cout << "stack is not fulll....." << endl << endl;
+                cout << "stack is not full....." << endl << endl;
             } 
         }
 
