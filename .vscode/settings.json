@@ -2,5 +2,7 @@
     "files.associations": {
         "iostream": "cpp",
         "ostream": "cpp"
-    }
+    },
+    "eslint.problems.shortenToSingleLine": true,
+    "problems.showCurrentInStatus": true
 }
